@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.webuy.flink.dao.FlinkUserDAO">
+
+	<resultMap id="BaseResultMap" type="com.webuy.flink.dao.DO.FlinkUserDO">
+		<id property="id" column="ID" /><!--主键id-->
+		<result property="itemId" column="ITEM_ID" /><!--商品id-->
+		<result property="price" column="PRICE" /><!--价格-->
+		<result property="time" column="TIME" /><!--时间字符串-->
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		`ID` ,
+		`ITEM_ID` ,
+		`PRICE` ,
+		`TIME` 
+	</sql>
+
+	<insert id="insertSelective" parameterType="com.webuy.flink.dao.DO.FlinkUserDO" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO
+		 `flink_user`
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+		<if test="itemId!=null" >`ITEM_ID`,</if>
+		<if test="price!=null" >`PRICE`,</if>
+		<if test="time!=null" >`TIME`</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+		<if test="itemId!=null" >#{itemId,jdbcType=BIGINT},</if>
+		<if test="price!=null" >#{price,jdbcType=BIGINT},</if>
+		<if test="time!=null" >#{time,jdbcType=VARCHAR}</if>
+		</trim>
+	</insert>
+
+<!--	<sql id="where_clause">-->
+<!--    	<where>-->
+<!--			<if test="id!=null" >`ID`=#{id,jdbcType=BIGINT}   </if>-->
+<!--	        <if test="itemId!=null" > AND `ITEM_ID`=#{itemId,jdbcType=BIGINT}</if>-->
+<!--	        <if test="price!=null" > AND `PRICE`=#{price,jdbcType=BIGINT}</if>-->
+<!--	        <if test="time!=null" > AND `TIME`=#{time,jdbcType=VARCHAR}</if>-->
+<!--    	</where>-->
+<!--    </sql>-->
+
+<!--	<select id="queryByCondition" resultMap="BaseResultMap">-->
+<!--		SELECT <include refid="Base_Column_List" />-->
+<!--		FROM `flink_user`-->
+<!--		<include refid="where_clause" />-->
+<!--	</select>-->
+</mapper>
+
